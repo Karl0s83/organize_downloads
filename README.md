@@ -75,8 +75,8 @@ Carlos Escribano Tiñena
 
 ## Support / Apóyame
 
-- Si te ha gustado este script o alguno de mis proyectos, puedes invitarme a un café aquí:  
+- If you liked this script or any of my projects, you can buy me a coffee here:
 
 [![Buy Me a Coffee] ☕ (https://coff.ee/carlosesti)
 
-- Tu apoyo me ayuda a seguir creando herramientas útiles, contenidos y aprendiendo día a día. ¡Gracias por estar ahí! 🙌
+- Your support helps me keep creating useful tools, content, and learning every day. Thank you for being here! 🙌
