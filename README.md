@@ -15,7 +15,7 @@ Este script mueve los archivos a subcarpetas categorizadas como Imágenes, Docum
 - The script **only moves files**, it does not delete anything.  
 - The script **does not move itself**, so you can safely keep it in your Downloads folder.  
 - Feel free to **customize folder names and file extensions** inside the script to your needs.
-
+--------------------------------------------------------------------------------------------------------
 - Por favor, **lee este README cuidadosamente** antes de usar el script.  
 - Usa el script **bajo tu propia responsabilidad**, se proporciona "tal cual" sin garantías.  
 - El script **solo mueve archivos**, no borra nada.  
@@ -66,7 +66,7 @@ Carlos Escribano Tiñena
 1. Place `organize_downloads.bat` in your Downloads folder.  
 2. Run the script by double-clicking it or via command prompt.  
 3. Enjoy your tidy Downloads folder!
-
+-------------------------------------------------------------------------
 1. Coloca `organize_downloads.bat` en tu carpeta de Descargas.  
 2. Ejecuta el script haciendo doble clic o desde la consola de comandos.  
 3. ¡Disfruta de tu carpeta de Descargas ordenada!
