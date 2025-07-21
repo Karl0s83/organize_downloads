@@ -1,7 +1,7 @@
 @echo off
 REM Script: organize_downloads.bat
 REM Purpose: Organize files in the Downloads folder by file type into subfolders.
-REM          Intended for Windows 10/11 users.
+REM  Intended for Windows 10/11 users.
 
 REM -------------------------------------------------------------
 REM IMPORTANT NOTES:
@@ -27,38 +27,54 @@ REM Format: FolderName=*.ext1 *.ext2 ...
 setlocal enabledelayedexpansion
 set "SCRIPTNAME=%~nx0"
 
-REM 2. Loop through file categories
-for %%C in (
-    "Images=*.jpg *.jpeg *.png *.gif *.bmp *.webp"
-    "Videos=*.mp4 *.mkv *.avi *.mov *.wmv"
-    "Music=*.mp3 *.wav *.flac *.aac *.ogg"
-    "Documents=*.pdf *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.txt"
-    "Compressed=*.zip *.rar *.7z *.tar *.gz"
-    "ISOs=*.iso *.img"
-    "Executables=*.exe *.msi"
-    "Scripts=*.bat *.cmd *.ps1 *.sh"
-    "Others=*.*"
-) do (
-    for /f "tokens=1,2 delims==" %%A in ("%%~C") do (
-        set "FOLDER=%%A"
-        set "PATTERNS=%%B"
+REM === 0. Set the Downloads folder path ===
+set "DOWNLOADS=%USERPROFILE%\Downloads"
 
-        REM 3. Create folder if it doesn't exist
-        if not exist "%DOWNLOADS%\!FOLDER!" (
-            mkdir "%DOWNLOADS%\!FOLDER!"
-        )
+REM === Define file categories and patterns ===
+set "CATEGORIES=Images Videos Music Documents Compressed ISOs Executables Scripts Others"
 
-        REM 4. Move matching files (but skip the script itself)
-        for %%P in (!PATTERNS!) do (
-            for %%F in ("%DOWNLOADS%\%%P") do (
-                if /I not "%%~nxF"=="%SCRIPTNAME%" (
-                    move "%%F" "%DOWNLOADS%\!FOLDER!" >nul 2>&1
-                )
-            )
+REM === Define patterns for each category ===
+set "CATEGORIES=Images Videos Music Documents Compressed ISOs Executables Scripts"
+set "Compressed=*.zip *.rar *.7z *.tar *.gz"
+set "Documents=*.pdf *.doc *.docx *.xls *.xlsx *.ppt *.pptx *.txt *.psd"
+set "Executables=*.exe *.msi"
+set "Images=*.jpg *.jpeg *.png *.gif *.bmp *.webp *.svg"
+set "ISOs=*.iso *.img"
+set "Music=*.mp3 *.wav *.flac *.aac *.ogg"
+set "Scripts=*.bat *.cmd *.ps1 *.sh"
+set "Videos=*.mp4 *.mkv *.avi *.mov *.wmv"
+
+REM Step 1: Move files according to their patterns
+pushd "%DOWNLOADS%"
+for %%C in (%CATEGORIES%) do (
+  set "FOLDER=%%C"
+  set "PATTERNS=!%%C!"
+  if not exist "!FOLDER!" mkdir "!FOLDER!"
+  
+  for %%P in (!PATTERNS!) do (
+    REM Use for /f with dir to avoid errors when no files match
+    for /f "delims=" %%F in ('dir /b /a-d "%%P" 2^>nul') do (
+      if /I not "%%F"=="%SCRIPTNAME%" (
+        if not exist "!FOLDER!\%%F" (
+          move "%%F" "!FOLDER!\" >nul
         )
+      )
     )
+  )
 )
+popd
 
-REM 5. Done
+REM Step 2: Move remaining files (that are not folders or the script) to "Others"
+pushd "%DOWNLOADS%"
+for %%F in (*.*) do (
+  if /I not "%%F"=="%SCRIPTNAME%" (
+    if not exist "Images\%%F" if not exist "Videos\%%F" if not exist "Music\%%F" if not exist "Documents\%%F" if not exist "Compressed\%%F" if not exist "ISOs\%%F" if not exist "Executables\%%F" if not exist "Scripts\%%F" (
+      if not exist "Others" mkdir "Others"
+      move "%%F" "Others\" >nul
+    )
+  )
+)
+popd
+
 echo Downloads folder organized successfully.
 pause
