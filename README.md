@@ -77,6 +77,6 @@ Carlos Escribano Tiñena
 
 - If you liked this script or any of my projects, you can buy me a coffee here:
 
-[![Buy Me a Coffee] ☕ (https://coff.ee/carlosesti)
+- ¡Buy Me a Coffee! ☕ (https://coff.ee/carlosesti)
 
 - Your support helps me keep creating useful tools, content, and learning every day. Thank you for being here! 🙌
